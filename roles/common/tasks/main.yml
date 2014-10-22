@@ -1,6 +1,6 @@
 ---
 - name: Regenerate apt-cache
-    apt: update_cache=yes
+  apt: update_cache=yes
 
 - name: install default packages
   apt: pkg={{ item }} state=installed
