@@ -1,7 +1,5 @@
 ---
-
 # site.yml
-
 - hosts: all
   tasks:
     - group_by: key={{ ansible_distribution }}
@@ -21,7 +19,7 @@
       # - nodejs
     when: ansible_os_family == "Debian"
 
-- hosts: CentOS
+- hosts: centos
   gather_facts: false
 
   tasks:
