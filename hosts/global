@@ -1,0 +1,9 @@
+[group-01]
+host-01.domain.name
+
+[group-02]
+host-02.domain.name
+
+[group:children]
+group-01
+group-02
