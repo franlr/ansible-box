@@ -1,0 +1,12 @@
+---
+# Run "apt-get update" on the target
+  - name: Regenerate apt-cache
+    apt: update_cache=yes
+
+- name: install default packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - vim
+    - python-dev
+    - htop
+    - screen
