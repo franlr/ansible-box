@@ -1,0 +1,16 @@
+# site.yml
+---
+
+- name: Apply common configuration to all target nodes
+  hosts: all
+  sudo: no
+  roles:
+    - common
+
+- name: Install all the packages and stuff required for a development web vm
+  hosts: development
+  sudo: no
+  roles:
+    # - nginx
+    # - apache
+    # - nodejs
