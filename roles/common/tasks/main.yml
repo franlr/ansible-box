@@ -1,6 +1,5 @@
 ---
-# Run "apt-get update" on the target
-  - name: Regenerate apt-cache
+- name: Regenerate apt-cache
     apt: update_cache=yes
 
 - name: install default packages
