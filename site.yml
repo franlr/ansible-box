@@ -29,6 +29,3 @@
 
 - hosts: centos
   gather_facts: false
-
-# - tasks:
-     - # tasks that only happen on CentOS go here
