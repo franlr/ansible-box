@@ -1,11 +1,50 @@
+#{{ ansible_managed }}
 
-driftfile /var/lib/ntp/drift
+driftfile {{ driftfile }}
+{% for i in server %}
+server {{ i }}
+{% endfor %}
 
-restrict 127.0.0.1 
-restrict -6 ::1
+{% for i in restrict %}
+restrict {{ i }}
+{% endfor %}
 
-server {{ ntpserver }}
+{% if crypto %}
+crypto
+{% endif %}
 
-includefile /etc/ntp/crypto/pw
+{% if includefile %}
+includefile  {{ includefile }}
+{% endif %}
 
-keys /etc/ntp/keys
+{% if keys %}
+keys {{ keys }}
+{% endif %}
+
+{% if trustedkey %}
+trustedkey {{ trustedkey }}
+{% endif %}
+
+{% if requestkey %}
+requestkey  {{ requestkey }}
+{% endif %}
+
+{% if controlkey %}
+controlkey {{ controlkey }}
+{% endif %}
+
+{% if statistics %}
+statistics {{ statistics }}
+{% endif %}
+
+{% if broadcast %}
+broadcast {{ broadcast }}
+{% endif %}
+
+{% if broadcastclient %}
+broadcastclient
+{% endif %}   
+
+{% if multicastclient %}
+multicastclient {{ multicastclient }}
+{% endif %}
