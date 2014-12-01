@@ -1,23 +1,24 @@
 ---
 # site.yml
+
 - hosts: all
   tasks:
     - group_by: key={{ ansible_distribution }}
 
-  - name: Apply common configuration to all target nodes
-    hosts: all
-    sudo: no
-    roles:
-      - common
+- name: Apply common configuration to all target nodes
+  hosts: all
+  sudo: no
+  roles:
+    - common
 
-  - name: Install all the packages and stuff required for a development web vm
-    hosts: development
-    sudo: no
-    roles:
-      # - nginx
-      # - apache
-      # - nodejs
-    when: ansible_os_family == "Debian"
+- name: Install all the packages and stuff required for a development web vm
+  hosts: development
+  sudo: no
+  roles:
+    # - nginx
+    # - apache
+    # - nodejs
+  when: ansible_os_family == "Debian"
 
 # - name: Install all the packages and stuff required for a webserver
 #   hosts: webservers
@@ -29,5 +30,5 @@
 - hosts: centos
   gather_facts: false
 
-  tasks:
+# - tasks:
      - # tasks that only happen on CentOS go here
