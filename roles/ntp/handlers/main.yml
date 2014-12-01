@@ -1,4 +1,5 @@
 ---
-name: Restart NTP daemon
-sudo: true
-service: name=ntp state=restarted
+
+- name: restart ntp
+  sudo: false
+  service: name={{ ntp_svc_name }} state=restarted
