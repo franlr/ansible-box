@@ -1,2 +1,7 @@
 # common.yml
 ---
+- hosts: all
+  sudo: no
+  tasks:
+    - name: Actualizar apt
+      apt: update_cache=yes
