@@ -19,6 +19,13 @@
       # - nodejs
     when: ansible_os_family == "Debian"
 
+# - name: Install all the packages and stuff required for a webserver
+#   hosts: webservers
+#   user: user
+#   sudo: no
+#   roles:
+#     - nginx
+
 - hosts: centos
   gather_facts: false
 
