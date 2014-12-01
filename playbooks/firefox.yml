@@ -1,0 +1,10 @@
+---
+- name: Install Firefox
+tasks:
+- apt_repository: repo="deb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main" state=present
+- apt_key: id="C1289A29" keyserver=keyserver.ubuntu.com state=present
+- apt: name=iceweasel state=absent
+- apt: name={{ item }} state=present update_cache=yes
+with_items:
+- firefox-mozilla-build
+- openjdk-7-jre-headless
