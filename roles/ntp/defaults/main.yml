@@ -1,0 +1,19 @@
+---
+
+driftfile: /var/lib/ntp/drift
+server: [hora.rediris.es]
+restrict:
+  - "restrict -4 default kod notrap nomodify nopeer noquery"
+  - "restrict -6 default kod notrap nomodify nopeer noquery"
+  - "restrict 127.0.0.1"
+
+crypto: no
+includefile: no
+keys: no
+trustedkey: no
+requestkey: no
+controlkey: no
+statistics: no
+broadcast: no 
+broadcastclient: no         
+multicastclient: no
