@@ -10,7 +10,8 @@
   sudo: no
   roles:
     - common
-
+    - ntp
+    
 - name: Install all the packages and stuff required for a development web vm
   hosts: development
   sudo: no
