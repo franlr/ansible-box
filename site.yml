@@ -18,7 +18,6 @@
     # - nginx
     # - apache
     # - nodejs
-  when: ansible_os_family == "Debian"
 
 # - name: Install all the packages and stuff required for a webserver
 #   hosts: webservers
