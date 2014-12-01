@@ -1,7 +1,18 @@
 ---
-- name: Install NTP daemon
-  sudo: true
-  apt: pkg=ntp state=present
+
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install the required packages in Redhat derivatives
+  yum: name={{ item }} state=installed
+  with_items: ntp_pkgs
+  when: ansible_os_family == 'RedHat'
+
+- name: Install the required packages in Debian derivatives
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items: ntp_pkgs
+  environment: env
+  when: ansible_os_family == 'Debian'
 
 - name: Ensure NTP daemon autostart
   sudo: true
@@ -9,5 +20,6 @@
 
 - name: Setup NTP daemon config
   sudo: true
-  template: src=etc/ntp.conf.j2 dest=/etc/ntp.conf
-  notify: Restart NTP daemon
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify:
+  - restart ntp
