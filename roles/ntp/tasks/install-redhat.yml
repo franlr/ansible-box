@@ -1,0 +1,8 @@
+---
+#
+# [REDHAT] ntp/install-redhat
+#
+- name: Install the required packages in Redhat derivatives
+  yum: name={{ item }} state=installed
+  with_items: ntp_pkgs
+  when: ansible_os_family == 'RedHat'
