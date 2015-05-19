@@ -15,7 +15,7 @@
 
 - name: Ensure NTP daemon autostart
   sudo: true
-  service: name={{ ntp_svc_name }} enabled=yes
+  service: name={{ ntp_svc_name }} state=started enabled=yes
   when: ntp_enabled
   
 - name: Setup NTP daemon config
