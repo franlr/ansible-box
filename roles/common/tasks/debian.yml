@@ -8,20 +8,5 @@
   with_items:
     - vim
     - python-dev
-    - htop
-    - screen
-    - tree
-    - curl
-    - wget
-    - unzip
-    - tar
-    - nano
-    - bash-completion 
-    - hdparm
-    - htop
-    - iptraf
-    - iperf3
-    - ntop
-    - nicstat
-    - iftop
+    - {{ pkg_common_list }}
   tags: common-packages
