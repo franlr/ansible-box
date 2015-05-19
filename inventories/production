@@ -11,8 +11,8 @@ host-02.domain.name
 group-01
 group-02
 
-[web-servers]
+[web]
 host-01.domain.name
 
-[monitoring-servers]
+[monitoring]
 host-03.domain.name
