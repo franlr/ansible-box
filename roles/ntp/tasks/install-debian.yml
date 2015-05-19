@@ -1,0 +1,8 @@
+---
+#
+# [DEBIAN] ntp/install-debian
+#
+- name: Install the required packages in Debian derivatives
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items: ntp_pkgs
+  when: ansible_os_family == 'Debian'
