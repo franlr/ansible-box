@@ -13,7 +13,7 @@
 #    - { role: sudo, sudo: yes, tags: "sudo" }
 #    - { role: openssh, sudo: yes, tags: "ssh" }
 
-- name: Apply settings to web servers: apache, php5-fpm
+- name: Apply settings to web servers using apache, php5-fpm
   hosts: web
   roles:
     - apache
