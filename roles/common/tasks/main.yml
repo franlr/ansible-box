@@ -1,16 +1,4 @@
 ---
-- name: Regenerate cache
-  apt: update_cache=yes
 
-- name: install default packages
-  apt: pkg={{ item }} state=installed
-#   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=present"
-  with_items:
-    - vim
-    - python-dev
-    - htop
-    - screen
-    - tree
-    - curl
-    - wget
-  tags: common-packages
+- { include: debian.yml, when: "ansible_os_family == 'Debian'" }
+- { include: redhat.yml, when: "ansible_os_family == 'RedHat'" }
