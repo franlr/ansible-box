@@ -8,3 +8,6 @@ host-00.domain.name ansible_ssh_host=192.168.100.19
 host-01.domain.name
 host-02.domain.name
 host-03.domain.name
+
+[web]
+localhost
