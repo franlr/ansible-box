@@ -2,7 +2,8 @@
 
 ntp_enabled: true
 driftfile: /var/lib/ntp/drift
-server: [hora.rediris.es]
+server:
+  - "hora.rediris.es"
 restrict:
   - "restrict -4 default kod notrap nomodify nopeer noquery"
   - "restrict -6 default kod notrap nomodify nopeer noquery"
