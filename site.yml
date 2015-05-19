@@ -1,31 +1,24 @@
 ---
 # site.yml
 
-- hosts: all
-  tasks:
-    - group_by: key={{ ansible_distribution }}
-
 - name: Apply common configuration to all target nodes
   hosts: all
-  sudo: no
+  user: vagrant
+  sudo: yes
+  gather_facts: true
   roles:
     - common
     - ntp
-    
-- name: Install all the packages and stuff required for a development web vm
-  hosts: development
-  sudo: no
-  roles:
-    # - nginx
-    # - apache
-    # - nodejs
+#    - git
+#    - { role: sudo, sudo: yes, tags: "sudo" }
+#    - { role: openssh, sudo: yes, tags: "ssh" }
 
-# - name: Install all the packages and stuff required for a webserver
-#   hosts: webservers
-#   user: user
-#   sudo: no
-#   roles:
-#     - nginx
+- hosts: web-servers
+  roles:
+    - apache
+    - debops.php5 # - { role: debops.php5, tags: "debops" } / # ansible-galaxy install debops.php5
+#    - nodejs
+#    - nginx
 
 - hosts: centos
   gather_facts: false
