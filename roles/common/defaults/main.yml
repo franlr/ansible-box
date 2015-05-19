@@ -2,17 +2,16 @@
 
 debian_cache_valid_time: 14400
 pkg_common_list:
-    - screen
-    - tree
-    - curl
-    - wget
-    - unzip
-    - tar
-    - nano
-    - bash-completion
-    - htop
-    - iptraf
-    - iperf3
-    - ntop
-    - nicstat
-    - iftop
+  - screen
+  - tree
+  - curl
+  - wget
+  - unzip
+  - tar
+  - nano
+  - bash-completion
+  - htop
+  - iptraf
+  - ntop
+  - nicstat
+  - iftop
