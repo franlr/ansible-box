@@ -1,12 +1,15 @@
 ---
 
 - name: Regenerate cache
-  apt: update_cache=yes cache_valid_time={{ debian_cache_valid_time }}"
+  apt: update_cache=yes cache_valid_time="{{ debian_cache_valid_time }}"
 
 - name: install default packages
   apt: pkg={{ item }} state=installed
   with_items:
     - vim
     - python-dev
-    - {{ pkg_common_list }}
+    - "{{ pkg_common_list }}"
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  changed_when: '"Removed" in pkg_result.stdout'
   tags: common-packages
