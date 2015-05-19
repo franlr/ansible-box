@@ -13,4 +13,15 @@
     - tree
     - curl
     - wget
+    - unzip
+    - tar
+    - nano
+    - bash-completion 
+    - hdparm
+    - htop
+    - iptraf
+    - iperf3
+    - ntop
+    - nicstat
+    - iftop
   tags: common-packages
