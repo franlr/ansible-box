@@ -1,0 +1,24 @@
+---
+
+- name: install default packages
+  yum: pkg={{ item }} state=installed
+  with_items:
+    - vim-enhanced
+    - python-devel
+    - htop
+    - screen
+    - tree
+    - curl
+    - wget
+    - unzip
+    - tar
+    - nano
+    - bash-completion 
+    - hdparm
+    - htop
+    - iptraf
+    - iperf3
+    - ntop
+    - nicstat
+    - iftop
+  tags: common-packages
