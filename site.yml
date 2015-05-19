@@ -13,7 +13,7 @@
 #    - { role: sudo, sudo: yes, tags: "sudo" }
 #    - { role: openssh, sudo: yes, tags: "ssh" }
 
-- hosts: web-servers
+- hosts: web
   roles:
     - apache
     - debops.php5 # - { role: debops.php5, tags: "debops" } / # ansible-galaxy install debops.php5
