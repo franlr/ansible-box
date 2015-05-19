@@ -10,4 +10,7 @@
     - python-dev
     - htop
     - screen
+    - tree
+    - curl
+    - wget
   tags: common-packages
