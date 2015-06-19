@@ -1,4 +1,5 @@
 ---
 # file: group_vars/web-servers
-apacheMaxRequestsPerChild=3000
-apacheMaxClients=900
+
+apacheMaxRequestsPerChild: 3000
+apacheMaxClients: 900
