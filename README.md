@@ -1,4 +1,4 @@
 ansible-box
 ===========
 
-Ansible box is a project for tests purposes.
+A minimal ansible bootstrap box to deploy a web server stack.
