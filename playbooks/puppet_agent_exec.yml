@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  sudo: no
+  
+  tasks:
+  - name: run remote puppet agent
+    command: "puppet agent -tv --server {{ puppet-server }} --ca_server {{ puppetca-server }}"
+    environment:
+      PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/lib:/usr/local/lib:/opt:{{ ansible_env.PATH }}
+    tags:
+      - puppet_agent_run
