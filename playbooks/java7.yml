@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  gather_facts: yes
+
+  vars:
+    is_centos: "'{{ ansible_distribution|lower }}' == 'centos'"
+    java_pkgs:
+    - java-1.7.0-openjdk
+    - java-1.7.0-openjdk-devel
+
+  tasks:
+  - name: install the required packages in RedHat derivatives
+    yum: name="{{ java.item }}" state=installed
+    with_items: "{{ java_pkgs }}"
+    when: is_centos
