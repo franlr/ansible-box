@@ -3,15 +3,16 @@
 
 - name: Apply common configuration to all target nodes
   hosts: all
-  user: vagrant
-  sudo: yes
+  user: vagrant # root
+  sudo: yes # no
   gather_facts: true
   roles:
     - common
     - ntp
+    - franlr.ocs
 #    - git
 #    - { role: sudo, sudo: yes, tags: "sudo" }
-#    - { role: openssh, sudo: yes, tags: "ssh" }
+#    - { role: openssh, sudo: no, tags: "ssh" }
 
 - name: Apply settings to web servers using apache, php5-fpm
   hosts: web
@@ -23,3 +24,70 @@
 
 - hosts: centos
   gather_facts: false
+
+  vars:
+    reqs:
+      - openssl-devel
+      - libxml2-devel
+      - libxslt-devel
+      - zlib-devel
+      - readline-devel 
+      - gcc-c++
+      - git
+      - dkms
+      - htop
+    latest:
+	    - tzdata
+	    - bash
+	    - openssl
+	    - tree
+	    - curl
+	    - wget
+
+  - name: set SELinux policy
+    selinux: policy=targeted state=permissive
+
+  - name: adjust timezone
+    copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
+
+  - name: create subdirs under home dir
+    file: dest={{ item }} state=directory owner=root group=root mode=0755
+      with_items:
+        - "/root/software"
+    register: files_created
+	  notify: some_handler
+
+#  - name: upgrade all CentOS packages
+#    yum: name=* state=latest update_cache=yes
+#    when: is_centos
+
+  - name: install the Development tools package group
+    yum: name="@Development tools" state=present
+    when: is_centos
+	
+  - name: install the Development tools package group
+    yum: name="@Development libraries" state=present
+    when: is_centos
+	
+  - name: install the required packages in RedHat derivatives
+    yum: name="{{ item.latest }}" state=latest
+    with_items: "{{ latest }}"
+    when: is_centos
+    tags: latest
+
+  - name: install the required packages in RedHat derivatives
+    yum: name="{{ item.reqs }}" state=present
+    with_items: "{{ reqs }}"
+    when: is_centos
+    tags: reqs 
+
+  - name: install the glibc package in RedHat derivatives
+    yum: name=glibc-2.12-1.149.el6_6.9 state=present
+    when: is_centos
+    tags: glibc
+    
+  handlers:
+    - name: "some_handler"
+      shell: "echo {{ item }} has changed!"
+      when: item.changed
+      with_items: files_created.results
