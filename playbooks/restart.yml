@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  vars:
+    is_centos: "'{{ ansible_distribution|lower }}' == 'centos'"
+
+  tasks:
+  - name: restart machine
+    command: shutdown -r now "Ansible updates triggered"
+    async: 0
+    poll: 0
+    ignore_errors: true
+
+  - name: Waiting for hosts to come back
+    delegate_to: target-host.domain.name
+    wait_for: host={{ inventory_hostname }} state=started port=22 delay=15 timeout=300 connect_timeout=15
+    sudo: false
