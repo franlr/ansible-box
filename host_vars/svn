@@ -1,0 +1,7 @@
+---
+# file: host_vars/svn
+
+svn_repo:
+  project1:
+    hour: 0
+    min: 10
