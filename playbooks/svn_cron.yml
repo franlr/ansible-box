@@ -16,3 +16,4 @@
         - backup
         - svn
         - {{ item.key }}
+      only_if: "$ansible_hostname == svn"
