@@ -11,6 +11,15 @@
 
 - name: set SELinux policy
   selinux: state=disabled
+#  selinux: policy=targeted state=permissive
 
 - name: set right timezone
   copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
+
+- name: create subdirs under home dir
+  file: dest={{ item }} state=directory owner=root group=root mode=0755
+  with_items:
+    - "/root/software"
+    - "/var/backups"
+  register: files_created
+	notify: some_handler
