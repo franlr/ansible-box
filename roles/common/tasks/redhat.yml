@@ -9,6 +9,15 @@
     - common
     - packages
 
+- name: ensure packages list is at the present version
+  yum: name="{{ item }}" state=present
+  with_items: "{{ pkg_present }}"
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  tags:
+    - common
+    - packages
+
 - name: set SELinux policy
   selinux: state=disabled
 #  selinux: policy=targeted state=permissive
@@ -22,4 +31,4 @@
     - "/root/software"
     - "/var/backups"
   register: files_created
-	notify: some_handler
+  notify: some_handler
