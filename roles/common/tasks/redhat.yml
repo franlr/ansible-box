@@ -1,12 +1,10 @@
 ---
 
-- name: install default packages
-  yum: pkg={{ item }} state=installed
-  with_items:
-    - vim-enhanced
-    - python-devel
-    - {{ pkg_common_list }}
+- name: ensure packages list is at the latest version
+  yum: name="{{ item }}" state=latest
+  with_items: "{{ pkg_latest }}"
   register: pkg_result
   failed_when: pkg_result.rc != 0
-  changed_when: '"Removed" in pkg_result.stdout'
-  tags: common-packages
+  tags:
+    - common
+    - packages
