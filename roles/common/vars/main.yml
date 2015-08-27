@@ -5,12 +5,6 @@ pkg_latest:
   - bash
   - openssl
   - openssh
-  - tree
-  - curl
-  - wget
-  - python-devel
-  - libselinux-python
-  - vim-enhanced
 
 pkg_present:
   - openssl-devel
@@ -23,5 +17,11 @@ pkg_present:
   - subversion
   - dkms
   - htop
+  - tree
+  - curl
+  - wget
+  - python-devel
+  - libselinux-python
+  - vim-enhanced
   - '@Development tools'
   - '@Development libraries'
