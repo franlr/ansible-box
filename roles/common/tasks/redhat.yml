@@ -1,7 +1,7 @@
 ---
 
 - name: ensure packages list is at the latest version
-  yum: name="{{ item }}" state=latest
+  yum: name="{{ item }}" state=latest update_cache=yes
   with_items: "{{ pkg_latest }}"
   register: pkg_result
   failed_when: pkg_result.rc != 0
@@ -10,8 +10,16 @@
     - packages
 
 - name: ensure packages list is at the present version
-  yum: name="{{ item }}" state=present
+  yum: name="{{ item }}" state=present update_cache=yes
   with_items: "{{ pkg_present }}"
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  tags:
+    - common
+    - packages
+
+- name: install the glibc package in RedHat derivatives
+  yum: name=glibc-2.12-1.149.el6_6.9 state=present update_cache=yes
   register: pkg_result
   failed_when: pkg_result.rc != 0
   tags:
@@ -25,7 +33,7 @@
 - name: set right timezone
   copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
 
-- name: create subdirs under home dir
+- name: create subfolders
   file: dest={{ item }} state=directory owner=root group=root mode=0755
   with_items:
     - "/root/software"
