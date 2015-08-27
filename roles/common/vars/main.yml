@@ -8,7 +8,20 @@ pkg_latest:
   - tree
   - curl
   - wget
-  - git
   - python-devel
   - libselinux-python
   - vim-enhanced
+
+pkg_present:
+  - openssl-devel
+  - libxml2-devel
+  - libxslt-devel
+  - zlib-devel
+  - readline-devel 
+  - gcc-c++
+  - git
+  - subversion
+  - dkms
+  - htop
+  - '@Development tools'
+  - '@Development libraries'
