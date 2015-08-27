@@ -7,7 +7,7 @@
   sudo: yes # no
   gather_facts: true
   roles:
-    - common
+    - franlr.common
     - ntp
     - franlr.ocs
 #    - git
@@ -24,38 +24,6 @@
 
 - hosts: centos
   gather_facts: false
-
-  vars:
-    reqs:
-      - openssl-devel
-      - libxml2-devel
-      - libxslt-devel
-      - zlib-devel
-      - readline-devel 
-      - gcc-c++
-      - git
-      - dkms
-      - htop
-    latest:
-	    - tzdata
-	    - bash
-	    - openssl
-	    - tree
-	    - curl
-	    - wget
-
-  - name: set SELinux policy
-    selinux: policy=targeted state=permissive
-
-  - name: adjust timezone
-    copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
-
-  - name: create subdirs under home dir
-    file: dest={{ item }} state=directory owner=root group=root mode=0755
-      with_items:
-        - "/root/software"
-    register: files_created
-	  notify: some_handler
 
 #  - name: upgrade all CentOS packages
 #    yum: name=* state=latest update_cache=yes
