@@ -1,19 +1,31 @@
 ---
+
 - hosts: svn
   gather_facts: false
   sudo: no
   user: root
+  
+  vars:
+    svn_repo:
+      project:
+        hour: 0
+        min: 10
 
   tasks:
     - name: ensure svn backup dir exists
-      file: dest="/srv/svn-backup" owner=root group=root mode=0755 state=directory
-      
+      file: dest="/srv/svn/backup" owner=root group=root mode=0755 state=directory
+
     - name: "svn_backup_{{ item.key }}"
-      cron: name="svn_backup_{{ item.key }}" minute="{{ item.value.min }}" hour="{{ item.value.hour }}" user="root" job="/usr/bin/svnadmin dump /srv/svn/{{ item.key }} | gzip -9 > /srv/svn-backup/$
+      cron: >
+        name="svn_backup_{{ item.key }}"
+        minute="{{ item.value.min }}"
+        hour="{{ item.value.hour }}"
+        user="root"
+        job="/usr/bin/svnadmin dump /srv/svn/{{ item.key }} | gzip -9 > /srv/svn/backup/                                                                                                                     -backup/{{ item.key }}.dump.gz"
+        state=present
       with_dict: svn_repo
       tags:
         - cron
         - backup
         - svn
-        - {{ item.key }}
-      only_if: "$ansible_hostname == svn"
+        - "{{ item.key }}"
