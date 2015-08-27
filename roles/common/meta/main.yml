@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: FranLR
+  description: An Ansible role for configure common settings.
+  company: None
+  license: Apache
+  min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - 6
+  - name: Debian
+    versions:
+    - wheezy
+  categories:
+  - system
+dependencies:
+#  - { role: "franlr.ocs" }
