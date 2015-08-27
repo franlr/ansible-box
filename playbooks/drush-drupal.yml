@@ -1,0 +1,23 @@
+---
+
+- hosts: all
+  sudo: no
+
+  tasks:
+    - name: install php-pear
+      yum: name=php-pear state=installed
+
+    - name: add drush channel
+      shell: pear channel-discover pear.drush.org || true
+
+    - name: install drush
+      shell: pear install -f drush/drush
+
+    - name: install console-table
+      shell: pear install -f Console_Table-1.1.5
+
+    - name: php requirements
+      yum: name=php-mbstring,php-gd,php-xml state=present
+
+    - name: drupal installation
+      shell: drush dl drupal-7.34
