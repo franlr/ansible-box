@@ -1,0 +1,14 @@
+---
+# vars file for franlr.common
+pkg_latest:
+  - tzdata
+  - bash
+  - openssl
+  - openssh
+  - tree
+  - curl
+  - wget
+  - git
+  - python-devel
+  - libselinux-python
+  - vim-enhanced
