@@ -8,3 +8,9 @@
   tags:
     - common
     - packages
+
+- name: set SELinux policy
+  selinux: state=disabled
+
+- name: set right timezone
+  copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
