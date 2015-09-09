@@ -3,5 +3,8 @@
 - hosts: all
   sudo: no
   tasks:
-    - name: Actualizar apt
-      apt: update_cache=yes
+  - name: create authorized_key files
+    authorized_key: user=root key="{{ item }}" state=present exclusive=no manage_dir=yes
+    with_file:
+      - key.pub
+    register: ssh_keys
