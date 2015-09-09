@@ -1,0 +1,10 @@
+---
+# repos.yml
+
+- hosts: all
+  user: root
+  sudo: no
+  gather_facts: yes
+  roles:
+    - { role: goozbach.EPEL, epel_testing_enabled: 0 }
+    - { role: goozbach.EPEL, epel_enabled: 1 }
