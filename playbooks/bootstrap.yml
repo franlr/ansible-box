@@ -1,0 +1,23 @@
+---
+# bootstrap.yml
+
+- hosts: all
+  user: root
+  sudo: no
+  gather_facts: yes
+
+  roles:
+    - { role: holms.fqdn, fqdn: "newname.domain.name", hostname: "newname" }
+
+  tasks:
+  - name: python requirements
+    yum: name='libselinux-python' state=present
+
+  - name: centos-release
+    yum: name='centos-release-6-7.el6.centos.12.3' state=present
+
+  - name: set SELinux policy to permissive (if state !=disabled)
+    selinux: policy=targeted state=permissive
+
+  - name: set timezone
+    copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
