@@ -21,3 +21,6 @@
 
   - name: set timezone
     copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
+
+  - name: line infile sysctl.conf
+    sysctl: name="kernel.hostname" value="localhost.localdomain" reload=yes state=present
