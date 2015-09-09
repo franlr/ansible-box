@@ -1,0 +1,111 @@
+---
+# sshd.yml
+
+- hosts: all
+  user: root
+  sudo: no
+  gather_facts: yes
+
+  tasks:
+  - name: set sshd Port
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^Port "
+                insertafter="^#Port "
+                line="Port 22"
+                state=absent
+
+  - name: set sshd Protocol
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^Protocol "
+                insertafter="^#Port "
+                line="Port 22"
+                state=absent
+
+  - name: set sshd PermitRootLogin
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PermitRootLogin"
+                insertafter="^#PermitRootLogin "
+                line="PermitRootLogin without-password"
+                state=present
+
+  - name: set sshd RSAAuthentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^RSAAuthentication "
+                insertafter="^#RSAAuthentication "
+                line="RSAAuthentication yes"
+                state=present
+
+  - name: set sshd PubkeyAuthentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PubkeyAuthenticationn "
+                insertafter="^#PubkeyAuthentication "
+                line="PubkeyAuthentication yes"
+                state=present
+
+  - name: set sshd PasswordAuthentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PasswordAuthentication "
+                insertafter="^#PasswordAuthentication "
+                line="PasswordAuthentication no"
+                state=present
+
+  - name: set sshd ChallengeResponseAuthentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^ChallengeResponseAuthentication "
+                insertafter="^#ChallengeResponseAuthentication "
+                line="ChallengeResponseAuthentication no"
+                state=present
+ 
+   - name: set sshd PermitEmptyPasswords
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PermitEmptyPasswords "
+                insertafter="^#PermitEmptyPasswords "
+                line="PermitEmptyPasswords no"
+                state=present
+
+   - name: set sshd UsePAM
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^UsePAM "
+                insertafter="^#UsePAM "
+                line="UsePAM yes"
+                state=present
+
+   - name: set sshd X11Forwarding
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^X11Forwarding "
+                insertafter="^#X11Forwarding "
+                line="X11Forwarding yes"
+                state=present
+                
+   - name: set sshd Banner
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^Banner "
+                insertafter="^#Banner "
+                line="Banner /etc/issue.net"
+                state=present    
+
+   - name: set sshd SyslogFacility
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^SyslogFacility "
+                insertafter="^#SyslogFacility "
+                line="SyslogFacility AUTHPRIV"
+                state=present    
+
+   - name: set sshd GSSAPIAuthentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^GSSAPIAuthentication "
+                insertafter="^#GSSAPIAuthentication "
+                line="GSSAPIAuthentication yes"
+                state=present    
+
+   - name: set sshd GSSAPICleanupCredentials
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^GSSAPICleanupCredentials "
+                insertafter="^#GSSAPICleanupCredentials "
+                line="GSSAPICleanupCredentials yes"
+                state=present    
+    notify: restart_sshd
+
+  handlers:
+    - name: restart_sshd
+      service: name=sshd state=restarted
