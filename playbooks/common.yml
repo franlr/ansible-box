@@ -8,7 +8,5 @@
 
   tasks:
   - name: create authorized_key files
-    authorized_key: user=root key="{{ item }}" state=present exclusive=no manage_dir=yes
-    with_file:
-      - key.pub
+    authorized_key: user=root key="{{ ansible_ssh_public_key }}" state=present exclusive=no manage_dir=yes
     register: ssh_keys
