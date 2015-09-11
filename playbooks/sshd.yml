@@ -37,7 +37,7 @@
 
   - name: set sshd PubkeyAuthentication
     lineinfile: dest=/etc/ssh/sshd_config
-                regexp="^PubkeyAuthenticationn "
+                regexp="^PubkeyAuthentication "
                 insertafter="^#PubkeyAuthentication "
                 line="PubkeyAuthentication yes"
                 state=present
