@@ -1,0 +1,4 @@
+---
+# file: host_vars/drupal.domain.name
+
+check_sites: /var/www/html/my_drupal_site
