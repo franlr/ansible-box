@@ -1,0 +1,14 @@
+---
+# drupal_update.yml
+
+- name: update drupal core to latest security release
+  command: drush up --security-only -y chdir={{ item }}
+  with_items: check_sites
+  tags:
+    - drupal
+    - update
+
+- name: run cron task
+  command: drush cron chdir={{ item }}
+  with_items: check_sites
+  tags: drupal
