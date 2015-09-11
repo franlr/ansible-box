@@ -6,32 +6,5 @@
   user: vagrant # root
   sudo: yes # no
   gather_facts: true
-  roles:
-    - franlr.common
-    - ntp
-    - franlr.ocs
-#    - geerlingguy.firewall
-#    - geerlingguy.ntp
-#    - git
-#    - { role: sudo, sudo: yes, tags: "sudo" }
-#    - { role: openssh, sudo: no, tags: "ssh" }
 
-- name: Apply settings to web servers using apache, php5-fpm
-  hosts: web
-  roles:
-    - apache
-    - debops.php5 # - { role: debops.php5, tags: "debops" } / # ansible-galaxy install debops.php5
-#    - nodejs
-#    - nginx
-
-- name: install the 'Development tools' package group
-  yum: name="@Development tools" state=present
-
-- name: create sample dir with two subdirs
-  file: path=/root/sample/{{ item }} state=directory owner=root group=root mode=0774
-  with_items:
-    - me
-    - you
-    - ' {{ fqdn }}'
-
-- include: common.yml
+- include: 'common.yml'
