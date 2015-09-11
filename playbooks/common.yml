@@ -2,6 +2,10 @@
 ---
 - hosts: all
   sudo: no
+  gather_facts: true
+  roles:
+    - franlr.common
+
   tasks:
   - name: create authorized_key files
     authorized_key: user=root key="{{ item }}" state=present exclusive=no manage_dir=yes
