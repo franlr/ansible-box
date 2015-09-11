@@ -1,0 +1,50 @@
+---
+# vmware-tools-upgrade.yml
+
+- hosts: all
+  user: root
+  sudo: no
+  gather_facts: yes
+
+  tasks:
+  - name: create folder
+    file: dest=/mnt/cdrom state=directory owner=root group=root mode=0755
+    with_items: ansible_mounts
+    when: item.mount != '/mnt/cdrom/'
+
+  - name: mount cdrom to new folder
+    mount: name=/mnt/cdrom src=/dev/cdrom fstype=iso9660 opts=ro state=mounted
+
+#  - name: find file with tar.gz
+#    shell: ls VMwareTools*.tar.gz
+#    args:
+#      chdir: /mnt/cdrom/
+#    register: tarball
+
+  - name: extract VMwareTools
+    unarchive: >
+      src="{{item}}"
+      dest=/tmp/
+      copy=no
+      mode=0755
+      owner=root
+      group=root
+    with_items:
+       - /mnt/cdrom/VMwareTools-9.4.11-2400950.tar.gz
+
+  - name: run the script into the uncompressed folder
+    command: chdir=/tmp/vmware-tools-distrib perl vmware-install.pl --default
+    environment:
+      PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/lib:/usr/local/lib:/opt:{{ ansible_env.PATH }}
+
+  - name: sleep 3
+    shell: echo "sleep 3" && sleep 3
+
+  - name: unmount cdrom
+    mount: name=/mnt/cdrom src=/dev/cdrom fstype=iso9660 opts=ro state=unmounted
+
+  - name: Clean extracted folder
+    file: path={{item}} state=absent
+    with_items:
+      - /tmp/vmware-tools-distrib
+  #    - /mnt/cdrom
