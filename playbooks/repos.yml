@@ -8,3 +8,4 @@
   roles:
     - { role: goozbach.EPEL, epel_testing_enabled: 0 }
     - { role: goozbach.EPEL, epel_enabled: 1 }
+    - { role: geerlingguy.repo-remi }
