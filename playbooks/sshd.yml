@@ -64,12 +64,12 @@
                 state=present
 
   - name: set sshd UsePAM
-   lineinfile: dest=/etc/ssh/sshd_config
-               regexp="^UsePAM "
-               insertafter="^#UsePAM "
-               line="UsePAM yes"
-               state=present
-
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^UsePAM "
+                insertafter="^#UsePAM "
+                line="UsePAM yes"
+                state=present
+  
   - name: set sshd X11Forwarding
     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^X11Forwarding "
