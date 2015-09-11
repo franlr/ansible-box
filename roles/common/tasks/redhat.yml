@@ -1,5 +1,12 @@
 ---
 
+
+- name: set SELinux policy to permissive (if state !=disabled)
+  selinux: policy=targeted state=permissive
+
+- name: set timezone
+  copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
+  
 - name: ensure packages list is at the latest version
   yum: name="{{ item }}" state=latest update_cache=yes
   with_items: "{{ pkg_latest }}"
@@ -25,13 +32,6 @@
   tags:
     - common
     - packages
-
-- name: set SELinux policy
-  selinux: state=disabled
-#  selinux: policy=targeted state=permissive
-
-- name: set right timezone
-  copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
 
 - name: create subfolders
   file: dest={{ item }} state=directory owner=root group=root mode=0755
