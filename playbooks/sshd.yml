@@ -57,7 +57,7 @@
                 state=present
  
    - name: set sshd PermitEmptyPasswords
-    lineinfile: dest=/etc/ssh/sshd_config
+     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^PermitEmptyPasswords "
                 insertafter="^#PermitEmptyPasswords "
                 line="PermitEmptyPasswords no"
@@ -71,35 +71,35 @@
                 state=present
 
    - name: set sshd X11Forwarding
-    lineinfile: dest=/etc/ssh/sshd_config
+     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^X11Forwarding "
                 insertafter="^#X11Forwarding "
                 line="X11Forwarding yes"
                 state=present
                 
    - name: set sshd Banner
-    lineinfile: dest=/etc/ssh/sshd_config
+     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^Banner "
                 insertafter="^#Banner "
                 line="Banner /etc/issue.net"
                 state=present    
 
    - name: set sshd SyslogFacility
-    lineinfile: dest=/etc/ssh/sshd_config
+     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^SyslogFacility "
                 insertafter="^#SyslogFacility "
                 line="SyslogFacility AUTHPRIV"
                 state=present    
 
    - name: set sshd GSSAPIAuthentication
-    lineinfile: dest=/etc/ssh/sshd_config
+     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^GSSAPIAuthentication "
                 insertafter="^#GSSAPIAuthentication "
                 line="GSSAPIAuthentication yes"
                 state=present    
 
    - name: set sshd GSSAPICleanupCredentials
-    lineinfile: dest=/etc/ssh/sshd_config
+     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^GSSAPICleanupCredentials "
                 insertafter="^#GSSAPICleanupCredentials "
                 line="GSSAPICleanupCredentials yes"
