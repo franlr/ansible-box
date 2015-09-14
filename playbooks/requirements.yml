@@ -4,7 +4,12 @@
 
 # from galaxy, github installing to a relative path
 - src:  holms.fqdn
-- src:  scott.miller171.linux_updater
-- src:  franlr.ocs
+- src:  yatesr.timezone
+- src: yum.conf
 - src:  goozbach.EPEL
 - src:  geerlingguy.repo-remi
+- src:  scott.miller171.linux_updater
+- src: authz
+- src: sshd
+- src:  franlr.issue
+- src:  franlr.ocs
