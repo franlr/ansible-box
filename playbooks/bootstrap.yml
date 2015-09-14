@@ -9,7 +9,8 @@
   roles:
     - { role: holms.fqdn, fqdn: "newname.domain.name", hostname: "newname" }
     - { role: yatesr.timezone, timezone: Europe/Madrid }
-
+#    - { role: another role }
+    - { role: franlr.issue, issue_content: "first line /n second line" }
   tasks:
   - name: set SELinux policy to permissive (if state !=disabled)
     selinux: policy=targeted state=permissive
