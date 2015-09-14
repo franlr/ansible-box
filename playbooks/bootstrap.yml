@@ -9,17 +9,11 @@
   roles:
     - { role: holms.fqdn, fqdn: "newname.domain.name", hostname: "newname" }
     - { role: yatesr.timezone, timezone: Europe/Madrid }
+    - { role: scott.miller171.linux_updater }
 #    - { role: another role }
     - { role: franlr.issue, issue_content: "first line /n second line" }
   
   tasks:
-  - name: add setting to yum.conf 
-    lineinfile: dest=/etc/yum.conf
-                regexp="^distroverpkg"
-                insertafter="^distroverpkg=centos-release"
-                line="exclude=kernel*"
-                state=present
-
   - name: install yum utilities
     yum: name=yum-utils,yum-plugin-priorities state=present update_cache=yes
 
@@ -39,4 +33,11 @@
   - name: line infile sysctl.conf
     sysctl: name="kernel.hostname" value="newname.domain.name" reload=yes state=present
 
+  - name: add setting to yum.conf 
+    lineinfile: dest=/etc/yum.conf
+                regexp="^distroverpkg"
+                insertafter="^distroverpkg=centos-release"
+                line="exclude=kernel*"
+                state=present
+  
   - include: "repos.yml"
