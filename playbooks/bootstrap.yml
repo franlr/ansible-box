@@ -8,13 +8,14 @@
 
   roles:
     - { role: holms.fqdn, fqdn: "newname.domain.name", hostname: "newname" }
+    - { role: yatesr.timezone, timezone: Europe/Madrid }
 
   tasks:
   - name: set SELinux policy to permissive (if state !=disabled)
     selinux: policy=targeted state=permissive
 
-  - name: set timezone
-    copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
+#  - name: set timezone
+#    copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
     
   - name: python requirements
     yum: name='libselinux-python' state=present
