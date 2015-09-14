@@ -14,13 +14,6 @@
                 line="Port 22"
                 state=absent
 
-  - name: set sshd Protocol
-    lineinfile: dest=/etc/ssh/sshd_config
-                regexp="^Protocol "
-                insertafter="^#Port "
-                line="Port 22"
-                state=absent
-
   - name: set sshd PermitRootLogin
     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^PermitRootLogin"
