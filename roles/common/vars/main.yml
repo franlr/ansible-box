@@ -7,6 +7,7 @@ pkg_latest:
   - openssh
 
 pkg_present:
+  - redhat-lsb-core
   - openssl-devel
   - libxml2-devel
   - libxslt-devel
