@@ -41,3 +41,19 @@
                 state=present
   
   - include: "repos.yml"
+
+  - name: Make inactive sessions will be closed in ten minutes
+    template: >
+      src=files/tmout.sh.j2
+      dest=/etc/profile.d/tmout.sh
+      user=root
+      group=root
+      mode=0644
+
+  - name: rsyslog firewall configuration
+    template: >
+      src=files/firewall.conf.j2
+      dest=/etc/rsyslog.d/firewall.conf
+      user=root
+      group=root
+      mode=0644
