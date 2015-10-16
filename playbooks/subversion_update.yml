@@ -1,0 +1,29 @@
+---
+# subversion_update.yml
+
+- hosts: all
+  user: root
+  sudo: no
+  gather_facts: no
+  vars:
+    version: 1.8.14-1.x86_64
+
+  tasks:
+  - name: WanDiscoSVN GPG
+    rpm_key: state=present key=http://opensource.wandisco.com/RPM-GPG-KEY-WANdisco
+
+  - name: WandiscoSVN setup
+    copy: >
+      src=./WandiscoSVN.repo                                                                                                                               
+      dest=/etc/yum.repos.d/
+      owner=root 
+      group=root 
+      mode=0644
+      
+  - name: update Subversion
+    yum: >
+      name="subversion-{{ version }}","mod_dav_svn-{{ version }}" 
+      disablerepo=*
+      enablerepo=WandiscoSVN 
+      update_cache=yes
+      state=present
