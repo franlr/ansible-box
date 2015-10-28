@@ -1,14 +1,43 @@
 ---
 # drupal_update.yml
 
-- name: update drupal core to latest security release
-  command: drush up --security-only -y chdir={{ item }}
-  with_items: check_sites
-  tags:
-    - drupal
-    - update
+- hosts: drupal
+  user: root
+  sudo: no
+  gather_facts: no
 
-- name: run cron task
-  command: drush cron chdir={{ item }}
-  with_items: check_sites
-  tags: drupal
+  tasks:
+
+  - name: backup of mysql table
+    command: drush sql-dump --result-file=../../var/backups/mysql/20151028.sql chdir={{ item }}
+    with_items: drupal_site_path
+    tags: drupal_mysql_backup
+
+  - name: put drupal site offline
+    command: drush -y vset --always-set maintenance_mode 1 chdir={{ item }}
+    with_items: drupal_site_path
+    tags: drupal_offline
+
+  - name: update drupal core to latest security release
+    command: drush up --security-only -y chdir={{ item }}
+    with_items: drupal_site_path
+    tags: drupal_update
+
+  - name: update drupal database
+    command: drush -y updatedb chdir={{ item }}
+    with_items: drupal_site_path
+    tags: drupal_updatedb
+
+  - name: run cron task
+    command: drush cron chdir={{ item }}
+    with_items: drupal_site_path
+    tags: drupal_update_cron
+
+  - name: put drupal site online
+    command: drush -y vset --always-set maintenance_mode 0 chdir={{ item }}
+    with_items: drupal_site_path
+    tags: drupal_online
+
+  - name: clean drush cache
+    command: drush -y cache-clear drush
+    tags: drush_cache_clear
