@@ -4,12 +4,12 @@
 - hosts: drupal
   user: root
   sudo: no
-  gather_facts: no
+  gather_facts: true
 
   tasks:
 
   - name: backup of mysql table
-    command: drush sql-dump --result-file=../../var/backups/mysql/20151028.sql chdir={{ item }}
+    command: drush sql-dump --result-file=../../var/backups/mysql/{{ ansible_date_time.date }}.sql chdir={{ item }}
     with_items: drupal_site_path
     tags: drupal_mysql_backup
 
