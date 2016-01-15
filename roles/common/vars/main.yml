@@ -7,12 +7,16 @@ pkg_latest:
   - openssh
 
 pkg_present:
+  - yum-utils
+  - yum-plugin-priorities
+  - libselinux-python
+  - python-devel
   - redhat-lsb-core
   - openssl-devel
   - libxml2-devel
   - libxslt-devel
   - zlib-devel
-  - readline-devel 
+  - readline-devel
   - gcc-c++
   - git
   - subversion
@@ -21,8 +25,12 @@ pkg_present:
   - tree
   - curl
   - wget
-  - python-devel
-  - libselinux-python
   - vim-enhanced
   - '@Development tools'
   - '@Development libraries'
+
+pkg_absent:
+  - sudo
+  - mercurial
+  - puppet
+  - facter
