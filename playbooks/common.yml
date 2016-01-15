@@ -4,8 +4,35 @@
   sudo: no
   gather_facts: true
   roles:
-    - franlr.common
-    - GROG.authorized-key
+   - role: GROG.user
+     user_list:
+       - name: admin
+   - role: GROG.authorized-key
+   - role: yatesr.timezone
+     timezone: Europe/Madrid
+   - role: franlr.ansible-issue
+     issue_content: "Augas de Galicia \nXunta de Galicia"
+   - role: franlr.common
+   - role: bennojoy.ntp
+     ntp_server: [ "{{ ntp_server_name }} iburst"]
+     ntp_restrict:
+       - "restrict default ignore"
+       - "restrict -6 default ignore"
+       - "restrict {{ ntp_server_ip }} nomodify"
+       - "restrict 127.0.0.1"
+       - "restrict -6 ::1"
+#   - role: scott.miller171.linux_updater
+   - role: franklinkim.vim
+     vim_config:
+       - 'set hlsearch'
+       - 'set showcmd'
+       - 'set showmatch'
+       - 'set ignorecase'
+       - 'set smartcase'
+       - 'set incsearch'
+       - 'set autowrite'
+       - 'set hidden'
+       - 'set number'    
   tasks:
 #  - name: create authorized_key files
 #    authorized_key: user=root key="{{ ansible_ssh_public_key }}" state=present exclusive=no manage_dir=yes
