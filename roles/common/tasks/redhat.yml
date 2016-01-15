@@ -1,37 +1,7 @@
 ---
 
-
 - name: set SELinux policy to permissive (if state !=disabled)
   selinux: policy=targeted state=permissive
-
-- name: set timezone
-  copy: src=/usr/share/zoneinfo/Europe/Madrid dest=/etc/localtime
-  
-- name: ensure packages list is at the latest version
-  yum: name="{{ item }}" state=latest update_cache=yes
-  with_items: "{{ pkg_latest }}"
-  register: pkg_result
-  failed_when: pkg_result.rc != 0
-  tags:
-    - common
-    - packages
-
-- name: ensure packages list is at the present version
-  yum: name="{{ item }}" state=present update_cache=yes
-  with_items: "{{ pkg_present }}"
-  register: pkg_result
-  failed_when: pkg_result.rc != 0
-  tags:
-    - common
-    - packages
-
-- name: install the glibc package in RedHat derivatives
-  yum: name=glibc-2.12-1.149.el6_6.9 state=present update_cache=yes
-  register: pkg_result
-  failed_when: pkg_result.rc != 0
-  tags:
-    - common
-    - packages
 
 - name: create subfolders
   file: dest={{ item }} state=directory owner=root group=root mode=0755
@@ -40,3 +10,59 @@
     - "/var/backups"
   register: files_created
   notify: some_handler
+
+- name: add setting to yum.conf
+  lineinfile: >
+    dest=/etc/yum.conf
+    regexp="^distroverpkg"
+    insertafter="^distroverpkg=centos-release"
+    line="exclude=kernel*"
+    state=present
+
+- name: install centos-release
+  yum: name='centos-release-6-7.el6.centos.12.3' state=present update_cache=yes
+
+##  - include: "repos.yml"
+
+- name: ensure packages list is at the latest version
+  yum: >
+    name="{{ item }}"
+    state=latest
+    update_cache=yes
+  with_items: "{{ pkg_latest }}"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  tags:
+    - common_packages_latest
+
+- name: ensure packages list is at the present version
+  yum: >
+    name="{{ item }}"
+    state=present
+    update_cache=yes
+  with_items: "{{ pkg_present }}"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  tags:
+    - common_packages_present
+
+- name: ensure these packages are not present
+  yum: >
+    name="{{ item }}"
+    state=absent
+  with_items: "{{ pkg_absent }}"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  tags:
+    - common_packages_absent
+
+- name: install the glibc package in RedHat derivatives
+  yum: name='glibc-2.12-1.166.el6_7.3','nss-3.19.1-8.el6_6' state=present update_cache=yes
+  register: pkg_result
+  failed_when: pkg_result.rc != 0
+  tags:
+    - common
+    - packages
