@@ -11,7 +11,7 @@
    - role: yatesr.timezone
      timezone: Europe/Madrid
    - role: franlr.ansible-issue
-     issue_content: "Augas de Galicia \nXunta de Galicia"
+     issue_content: "some content"
    - role: franlr.common
    - role: bennojoy.ntp
      ntp_server: [ "{{ ntp_server_name }} iburst"]
