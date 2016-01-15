@@ -1,5 +1,0 @@
----
-
-- name: restart ntp
-  sudo: false
-  service: name={{ ntp_svc_name }} state=restarted
