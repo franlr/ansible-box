@@ -1,0 +1,6 @@
+---
+
+- name: some_handler
+  shell: "echo {{ item }} has changed!"
+  when: item.changed
+  with_items: files_created.results
