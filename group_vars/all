@@ -5,4 +5,12 @@ ansible_connection: ssh
 ansible_ssh_port: 22
 ansible_ssh_user: root
 ansible_ssh_private_key_file: ~/.vagrant.d/insecure_private_key
-ansible_ssh_public_key: BLABLABLA
+ansible_ssh_public_key: ~/.vagrant.d/id_rsa.pub
+
+authorized_key_list:
+  - name: root
+    authorized_keys:
+      - key: "{{ lookup('file', '~/.vagrant.d/id_rsa.pub') }}"
+        state: present
+        manage_dir: no
+        exclusive: no
