@@ -3,13 +3,17 @@
 # Requirements for running the playbook
 
 # from galaxy, github installing to a relative path
-- src:  holms.fqdn
-- src:  yatesr.timezone
-- src: yum.conf
-- src:  goozbach.EPEL
-- src:  geerlingguy.repo-remi
-- src:  scott.miller171.linux_updater
-- src: authz
-- src: sshd
-- src:  franlr.issue
-- src:  franlr.ocs
+- src: holms.fqdn
+- src: yatesr.timezone
+#- src: yum.conf
+- src: bennojoy.ntp
+- src: franklinkim.vim
+- src: GROG.user
+- src: GROG.authorized-key
+- src: goozbach.EPEL
+- src: geerlingguy.repo-remi
+- src: scott.miller171.linux_updater
+#- src: sshd
+- src: franlr.issue
+- src: franlr.ocs
+- src: franlr.common
