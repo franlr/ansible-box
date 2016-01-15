@@ -5,8 +5,8 @@
   gather_facts: true
   roles:
     - franlr.common
-
+    - GROG.authorized-key
   tasks:
-  - name: create authorized_key files
-    authorized_key: user=root key="{{ ansible_ssh_public_key }}" state=present exclusive=no manage_dir=yes
-    register: ssh_keys
+#  - name: create authorized_key files
+#    authorized_key: user=root key="{{ ansible_ssh_public_key }}" state=present exclusive=no manage_dir=yes
+#    register: ssh_keys
