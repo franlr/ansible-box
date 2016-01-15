@@ -1,7 +1,0 @@
----
-
-ntp_pkgs:
-- ntp
-# - python-selinux
-
-ntp_svc_name: ntp
