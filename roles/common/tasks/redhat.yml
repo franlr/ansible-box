@@ -11,14 +11,6 @@
   register: files_created
   notify: some_handler
 
-- name: add setting to yum.conf
-  lineinfile: >
-    dest=/etc/yum.conf
-    regexp="^distroverpkg"
-    insertafter="^distroverpkg=centos-release"
-    line="exclude=kernel*"
-    state=present
-
 - name: install centos-release
   yum: name='centos-release-6-7.el6.centos.12.3' state=present update_cache=yes
 
